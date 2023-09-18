@@ -1,27 +1,16 @@
 import json
 import os
 import requests
-# import subprocess
 import pandas as pd
 import mysql.connector as sql
-# import streamlit as st
-# from PIL import Image
-# from streamlit_option_menu import option_menu
-# import plotly.express as px
-
-# data = requests.get('https://api.github.com/repos/PhonePe/pulse')
-# repo = data.json()
-# clone_url = repo['clone_url']
 
 repo_name = 'pulse'
 clone_dir = os.path.join(os.getcwd(), repo_name)
-# subprocess.run(["git", "clone", clone_url, clone_dir], check=True)
 
 #Agg_trans
 path = '/Users/hemap/PycharmProjects/pulse/data/aggregated/transaction/country/india/state/'
 Agg_state_list = os.listdir(path)
 # Agg_state_list
-
 df1 = {'State':[], 'Year':[], 'Quarter': [], 'Transaction_type': [],'Transaction_count': [], 'Transaction_amount':[]}
 for i in Agg_state_list:
     p_i=path+i+"/"
@@ -196,68 +185,7 @@ mydb = sql.connect(host="127.0.0.1",
                   )
 cursor = mydb.cursor()
 
-# cursor.execute('CREATE DATABASE PULSE')
-# cursor.execute('USE PULSE')
-# table1 = '''CREATE TABLE Agg_Trans(
-#                         STATE VARCHAR(255),
-#                         YEAR int,
-#                         Quarter int,
-#                         Transaction_type VARCHAR(255),
-#                         Transaction_count int,
-#                         Transaction_amount DOUBLE
-#                         )'''
-#
-# table2 = '''CREATE TABLE Agg_Users(
-#                         STATE VARCHAR(255),
-#                         YEAR int,
-#                         Quarter int,
-#                         Brand VARCHAR(255),
-#                         reg_users_count int,
-#                         Percentage DOUBLE
-#                         )'''
-#
-# table3 = '''CREATE TABLE Map_Trans(
-#                         STATE VARCHAR(255),
-#                         YEAR int,
-#                         Quarter int,
-#                         District VARCHAR(255),
-#                         Transaction_count int,
-#                         Transaction_amount DOUBLE
-#                         )'''
-#
-# table4 = '''CREATE TABLE Map_Users(
-#                         STATE VARCHAR(255),
-#                         YEAR int,
-#                         Quarter int,
-#                         District VARCHAR(255),
-#                         reg_users_count int,
-#                         AppOpens int
-#                         )'''
-#
-# table5 = '''CREATE TABLE Top_Trans(
-#                         STATE VARCHAR(255),
-#                         YEAR int,
-#                         Quarter int,
-#                         District VARCHAR(255),
-#                         Transaction_count int,
-#                         Transaction_amount DOUBLE
-#                         )'''
-#
-# table6 = '''CREATE TABLE Top_Users(
-#                         STATE VARCHAR(255),
-#                         YEAR int,
-#                         Quarter int,
-#                         Pincode int,
-#                         reg_users_count int
-#                         )'''
-#
-# tables = [table1,table2,table3,table4,table5,table6]
-# for i in tables:
-#     cursor.execute(i)
-#
-# cursor.execute('Show Tables')
-# cursor.fetchall()
-#
+#To insert the the above data to Mysql tables
 rows = list(Agg_transaction.itertuples(index=False, name=None))
 for i in rows:
     query = 'INSERT INTO Agg_Trans VALUES (%s,%s,%s,%s,%s,%s)'
